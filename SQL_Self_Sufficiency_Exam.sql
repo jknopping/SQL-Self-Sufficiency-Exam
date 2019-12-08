@@ -4,7 +4,13 @@
 
 --1) Write a query that allows you to inspect the schema of the naep table.
 SELECT *
-FROM naep;
+FROM information_schema.columns
+WHERE table_name = 'naep'
+
+--A more condensed version:
+SELECT column_name, data_type 
+FROM information_schema.columns
+WHERE table_name = 'naep';
 
 --2) Write a query that returns the first 50 records of the naep table.
 SELECT *
@@ -55,10 +61,9 @@ LIMIT 10;
 --6) Write a query that calculates the average avg_math_4_score rounded to the 
 --nearest 2 decimal places over all states in the year 2000.
 
-SELECT state, ROUND(AVG(avg_math_4_score),2) AS avg_score_2000
+SELECT ROUND(AVG(avg_math_4_score),2) AS avg_score_2000
 FROM naep
-WHERE year = 2000
-GROUP BY state;
+WHERE year = 2000;
 
 --7) Write a query that returns a field called below_average_states_y2000 that 
 --lists all states with an avg_math_4_score less than the average over all states 
